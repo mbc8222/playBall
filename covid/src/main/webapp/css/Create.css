@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.idcheck_already{
+	display:none;
+}
+
+.idcheck_ok{
+	display:none;
+}
+
+.idcheck_type{
+	display:none;
+}
+
+.pwd_fail{
+	display:none;
+}
+
+.pwd_ok{
+	display:none;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.MemberMapper">
+	<insert id="create" parameterType="vo.MemberVo">
+		INSERT INTO COVIDMEMBER (id, password, name, phone) values(#{id}, #{password}, #{name}, #{phone})
+	</insert>
+
+	<select id="login" parameterType="vo.MemberVo" resultType="vo.MemberVo">
+		select id, password from COVIDMEMBER where id=#{id} and password=#{password}
+	</select>
+	
+	<select id="idcheck" parameterType="String" resultType="int">
+		select count(*) from covidmember where id=#{id}
+	</select>
+</mapper>
