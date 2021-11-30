@@ -13,8 +13,7 @@
 	<bean id="controller" class="controller.MemberController"/>
 	<bean id="service" class="service.MemberServiceImpl"/>
 	<bean id="dao" class="dao.MemberDaoImpl"/>
-	
-	
+    
 	<bean id="Viewresolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		
@@ -22,4 +21,11 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/createzone.no"/>
+            <bean id="interceptor" class="interceptor.Interceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
 </beans>

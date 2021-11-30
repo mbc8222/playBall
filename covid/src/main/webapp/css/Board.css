@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.container{
+	text-align:center;
+	width: 1895px;
+    min-height: 1000px;
+    margin: auto;
+}
+
+.board{
+	display:inline-block;
+	margin-top:5px;
+	width:70%;
+	height:800px;
+}
+
+.frm_notice{
+	margin-top:90px;
+}
+
+table{
+	border:solid 1px #000;
+	text-align:left;
+}
+
+.num{
+	width:100px;
+}
+
+.id{
+	width:100px;
+}
+
+.title{
+	width:500px;
+}
+
+.time{
+	width:150px;
+}
+
+a:link { 
+	color: red; 
+	text-decoration: none;
+}
+a:visited { 
+	color: black; 
+	text-decoration: none;
+}

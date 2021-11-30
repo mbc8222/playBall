@@ -1,8 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -20,7 +17,7 @@ import vo.CovidVo;
 @Controller
 public class CovidController {
 
-	@RequestMapping(value="covid.covid", method= {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="covid.co", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView covid() {
 		ModelAndView mv=new ModelAndView();
 		CovidVo vo=new CovidVo();
@@ -37,11 +34,8 @@ public class CovidController {
 			NodeList childs=doc.getElementsByTagName("item");
 			Node child=childs.item(0);
 			Node childvalue=child.getFirstChild().getFirstChild();
-			Node childvalue2=child.getFirstChild().getPreviousSibling().getFirstChild().getFirstChild();
 			rate=childvalue.getNodeValue();
-			rate2=childvalue2.getNodeValue();
 			vo.setAcc_def_rate(rate);
-			vo.setExam_cnt(rate2);
 			System.out.println(childvalue.getNodeValue());
 			mv.addObject("covid", vo);
 			mv.setViewName("Main");

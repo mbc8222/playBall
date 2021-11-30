@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.NoticeMapper">
+
+	<select id='totList' parameterType='vo.PageVo' resultType='Integer'>
+		select count(title) totList from notice where title like '%'||#{findStr}||'%'
+	</select>
+	
+	<select id="search" parameterType="vo.PageVo" resultType="vo.NoticeVo">
+		select * from 
+			(SELECT rownum rno, n.* FROM 
+				(SELECT * 
+				FROM notice 
+				where title like '%'||#{findStr}||'%' ORDER BY time DESC) n
+		) where rno BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<insert id='create' parameterType='vo.NoticeVo'>
+		insert into Notice(serial, id, title, content, time) values(seq_serial.nextval, #{id}, #{title}, #{content}, sysdate)
+	</insert>
+	
+	<update id='modify' parameterType='vo.NoticeVo'>
+		UPDATE notice SET  title = #{title}, content = #{content}, time = sysdate WHERE serial= #{serial}
+	</update>
+	
+	<delete id='delete' parameterType='vo.NoticeVo'>
+		delete from notice where serial = #{serial}
+	</delete>
+	
+	<select id='detail' parameterType="vo.NoticeVo" resultType="vo.NoticeVo">
+		select serial, id, title, content from notice where serial = #{serial}
+	</select>
+
+</mapper>

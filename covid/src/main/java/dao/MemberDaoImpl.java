@@ -30,8 +30,12 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	@Transactional
 	public MemberVo login(MemberVo vo) {
+		System.out.println("daologin");
+		System.out.println("daologin"+vo.getId());
+		System.out.println("daologin"+vo.getPassword());
 		MemberVo login=member.login(vo);
 		return login;
+		
 	}
 
 	@Override

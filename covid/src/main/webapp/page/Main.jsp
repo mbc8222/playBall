@@ -12,22 +12,30 @@
 </head>
 <body>
 	<div id='container' class='container'>
-		<form id="frm_header" method="post">
-			<div id='header' class='header'>
-				<c:if test="${user == null }">
-					<input type='button' value='로그인' id='login'>
-					<input type='text' id='search'>
-					<input type='button' id='btn_search' value="검색">
-				</c:if>
-				<c:if test="${user !=null }">
-					<span>${user.id }</span>님
-					<input type='button' id='btn_logout' value='로그아웃'>
-				</c:if>
+		<div id='menu' class='menu'>
+				<ul>
+					<li><a href="#none">소개</a></li>
+					<li><a href="#none">정보</a></li>
+					<li><a href="#none" id='notice' onclick="movenotice();">자유게시판</a></li>
+					<li>
+						<form id="frm_header" method="post">
+							<c:if test="${user == null }">
+								<input type='button' value='로그인' id='login'>
+							</c:if>
+							<c:if test="${user !=null }">
+								<span>${user.id }</span>님
+								<input type='button' id='btn_logout' value='로그아웃'>
+							</c:if>
+							<input type='text' id='findstr' name='findStr'>
+							<input type='button' id='btn_search' value="검색">
+						</form>
+					</li>
+				</ul>
 			</div>
-		</form>
 		<div id='content' class='content'>
 			<div class='main_content'>
 				<h2>발생현황</h2>
+				<input type="button" id="covid_update" value="업데이트">
 				<table>
 					<tr>
 						<th>구분</th>

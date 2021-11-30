@@ -1,17 +1,9 @@
 @charset "UTF-8";
 
 .container{
-	width: 100%;
+	width: 1895px;
     min-height: 1000px;
     margin: auto;
-}
-
-.header{
-	display: inline-block;
-    float: right;
-    width:300px;
-    margin-right: 140px;
-    margin-top: 37px;
 }
 
 .content{
@@ -27,6 +19,27 @@
 	width: 70%;
     margin-left: 10%;
 }
+
+.menu{
+	display: inline-block;
+    width: 100%;
+}
+
+.menu ul li{
+	list-style: none;
+    float: left;
+    width: 24%;
+    height: 100%;
+    text-align: center;
+    margin-top: 37px;
+}
+
+.menu ul li a{
+	font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+}
+
 
 .footer{
 	display:inline-block;

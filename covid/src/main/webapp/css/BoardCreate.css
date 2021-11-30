@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.cr{
+	display: inline-block;
+    margin-left: 350px;
+    margin-top: 80px;
+}
+
+.summernote{
+	display:inline-block;
+	width:900px;
+	margin-top:10px;
+	background-color:#fff;
+}
+
+.title{
+	width:853px;
+}

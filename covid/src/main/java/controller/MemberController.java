@@ -48,12 +48,13 @@ public class MemberController {
 		System.out.println(vo.getPhone());
 		int result=service.idcheck(vo.getId());
 		if(result==0) {
-			service.create(vo);			
-		}else {
+			service.create(vo);	
 			mv.setViewName("Main");
+		}else {
+			//mv.addObject("vo", vo);
+			//mv.setViewName("Create");
 			
 		}
-		
 		return mv;
 	}
 	
@@ -70,20 +71,23 @@ public class MemberController {
 	
 	//로그인
 	@RequestMapping(value="login.do", method= {RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView login(MemberVo vo, HttpServletRequest request) {
+	public ModelAndView login(MemberVo vo, HttpSession session) {
 		ModelAndView mv=new ModelAndView();
-		HttpSession session=null;
 		MemberVo login=service.login(vo);
+		System.out.println("conlogin1"+vo.getId());
+		System.out.println("conlogin2"+vo.getPassword());
+		System.out.println("intercont1");
+		if(session.getAttribute("user") != null) {
+			session.removeAttribute("user");
+		}
 		
-		if(login==null) {
-			System.out.println("실패");
-			request.setAttribute("msg", "아이디 x");
-		}else {
-			System.out.println("성공");
-			session=request.getSession();
+		if(login != null) {
 			session.setAttribute("user", login);
-			System.out.println(session.getAttribute("user"));
+			System.out.println("intercont2");
 			mv.addObject("user", login);
+			mv.setViewName("Main");
+		}else {
+			System.out.println("intercont3");
 			mv.setViewName("Main");
 		}
 		return mv;
