@@ -26,23 +26,35 @@ public class covidxml {
 	public static void main(String[] args) {
 		String rate;
 		CovidVo vo=new CovidVo();
+		
+		
 		try {
 			DocumentBuilderFactory builderfactory=DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder=builderfactory.newDocumentBuilder();
 			//xml파일 url경로
-			String url="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=ow7b%2B%2FQpQVf5nEFUnodaFs1O8e9nrUDCHUXTazoPcesbYudku4fj%2B7s7SMWarXMdEwU9Inkelulxsx%2FCKB6j3Q%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315";
-				Document doc=builder.parse(url);
+			String url="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=ow7b%2B%2FQpQVf5nEFUnodaFs1O8e9nrUDCHUXTazoPcesbYudku4fj%2B7s7SMWarXMdEwU9Inkelulxsx%2FCKB6j3Q%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20211129&endCreateDt=20211201";
+				
+			Document doc=builder.parse(url);
 				Element root=doc.getDocumentElement();
 				NodeList childs=doc.getElementsByTagName("item");
+				doc.getDocumentElement().normalize();
+				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+				
+				System.out.println(childs.getLength());
+				
+		
+				
 				Node child=childs.item(0);
 				Node childvalue=child.getFirstChild().getFirstChild();
 				rate=childvalue.getNodeValue();
-				vo.setAcc_def_rate(rate);
-				System.out.println(childvalue.getNodeValue());
-				System.out.println("asd"+rate);
-				System.out.println("vo"+vo.getAcc_def_rate());
+				vo.setUpdate();
+				
+				System.out.println("rate"+rate);
+				
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
 	}
+
+	
 }

@@ -21,27 +21,41 @@ public class CovidController {
 	public ModelAndView covid() {
 		ModelAndView mv=new ModelAndView();
 		CovidVo vo=new CovidVo();
-		String rate;
-		String rate2;
-		//DOCUMENT객체
+		String url="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=ow7b%2B%2FQpQVf5nEFUnodaFs1O8e9nrUDCHUXTazoPcesbYudku4fj%2B7s7SMWarXMdEwU9Inkelulxsx%2FCKB6j3Q%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20211130&endCreateDt=20211201";
+
 		try {
-		DocumentBuilderFactory builderfactory=DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder=builderfactory.newDocumentBuilder();
-		//xml파일 url경로
-		String url="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=ow7b%2B%2FQpQVf5nEFUnodaFs1O8e9nrUDCHUXTazoPcesbYudku4fj%2B7s7SMWarXMdEwU9Inkelulxsx%2FCKB6j3Q%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315";
-			Document doc=builder.parse(url);
-			Element root=doc.getDocumentElement();
-			NodeList childs=doc.getElementsByTagName("item");
-			Node child=childs.item(0);
-			Node childvalue=child.getFirstChild().getFirstChild();
-			rate=childvalue.getNodeValue();
-			vo.setAcc_def_rate(rate);
-			System.out.println(childvalue.getNodeValue());
-			mv.addObject("covid", vo);
-			mv.setViewName("Main");
-		}catch (Exception e) {
+				DocumentBuilderFactory bf=DocumentBuilderFactory.newInstance();
+				DocumentBuilder b=bf.newDocumentBuilder();
+				Document doc=b.parse(url);
+				doc.getDocumentElement().normalize();
+				System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
+				NodeList list = doc.getElementsByTagName("item"); 
+				System.out.println("list"+list.getLength());
+				System.out.println("--------------------------------------");
+				for(int i=0; i<list.getLength(); i++) {
+					Node node=list.item(i);
+					System.out.println("nodename :" + node.getNodeName());
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement=(Element) node;
+	                    System.out.println("업데이트 시간 : " + eElement.getElementsByTagName("updateDt").item(0).getTextContent());
+	                    System.out.println("확진자 수 : " + eElement.getElementsByTagName("decideCnt").item(0).getTextContent());
+	                    System.out.println("사망자 수 : " + eElement.getElementsByTagName("deathCnt").item(0).getTextContent());
+	                   
+	                    vo.setDecide(eElement.getElementsByTagName("decideCnt").item(0).getTextContent());
+	                    vo.setDeath(eElement.getElementsByTagName("deathCnt").item(0).getTextContent());
+	                    vo.setUpdate(eElement.getElementsByTagName("updateDt").item(0).getTextContent());
+					}
+				}
+				
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("업데이트 시간 : " + vo.getDecide());
+        System.out.println("확진자 수 : " + vo.getDeath());
+        System.out.println("사망자 수 : " + vo.getUpdate());
+        mv.addObject("vo", vo);
+        mv.setViewName("Main");
 		return mv;
 	}
 }

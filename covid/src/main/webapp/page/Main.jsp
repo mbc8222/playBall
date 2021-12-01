@@ -36,17 +36,22 @@
 			<div class='main_content'>
 				<h2>발생현황</h2>
 				<input type="button" id="covid_update" value="업데이트">
+				<span>${vo.update }</span>
 				<table>
 					<tr>
 						<th>구분</th>
-						<th>누적확진률</th>
-						<th>검사진행수</th>
-						<th>누적3</th>
+						<th>확진자 수</th>
+						<th>사망자 수</th>
 					</tr>
 					<tr>
 						<th>일일</th>
-						<th>${covid.acc_def_rate }%</th>
-						<th>${covid.exam_cnt }%</th>
+						<th></th>
+						<th></th>
+					</tr>
+					<tr>
+						<th>총</th>
+						<th>${vo.decide }</th>
+						<th>${vo.death }</th>
 					</tr>
 				</table>			
 			</div>
