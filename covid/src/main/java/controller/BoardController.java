@@ -1,7 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import service.NoticeServiceImpl;
 import vo.NoticeVo;
@@ -22,6 +27,18 @@ public class BoardController {
 	
 	@RequestMapping(value="board.no", method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView board(PageVo vo) {
+		ModelAndView mv=new ModelAndView();
+		List<NoticeVo> list=new ArrayList<NoticeVo>();
+		System.out.println("now"+vo.getNowPage());
+		list=service.search(vo);
+		mv.addObject("page",vo);
+		mv.addObject("list", list);
+		mv.setViewName("Board");						
+		return mv;
+	}
+	
+	@RequestMapping(value="mergetest.no", method= {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView mergetest(PageVo vo) {
 		ModelAndView mv=new ModelAndView();
 		List<NoticeVo> list=new ArrayList<NoticeVo>();
 		System.out.println("now"+vo.getNowPage());
@@ -74,5 +91,21 @@ public class BoardController {
 		return mv;
 	}
 	
+	@RequestMapping(value="jsontest.no", method= {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView jsontest() {
+		ModelAndView mv=new ModelAndView();
+		Map<String, String> map=new LinkedHashMap<>();
+		map.put("name1", "one");
+		map.put("name2", "two");
+		map.put("name3", "three");
+		map.put("name4", "four");
+		map.put("name5", "five");
+		
+		JSONPObject jo = new JSONPObject(map);
+		
+		mv.addObject("map", map);
+		System.out.println(map);
+		return mv;
+	}
 	
 }
